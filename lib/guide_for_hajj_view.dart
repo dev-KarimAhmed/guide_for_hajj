@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class GuideForHajjView extends StatelessWidget {
   const GuideForHajjView({super.key});
@@ -7,10 +8,12 @@ class GuideForHajjView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: const Center(
+      body: Center(
         child: Column(
           children: [
-          
+            SvgPicture.asset(
+              'assets/images/frame.svg',
+            ),
           ],
         ),
       ),

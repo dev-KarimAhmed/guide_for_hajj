@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:guide_for_hajj/guide_for_hajj_view.dart';
+import 'package:guide_for_hajj/test.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Guide For Hajj',
-      home: GuideForHajjView(),
+      home: RotatingCircle(),
     );
   }
 }

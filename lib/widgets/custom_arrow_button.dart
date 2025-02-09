@@ -1,8 +1,7 @@
-
 import 'package:flutter/material.dart';
 
-class CustomArrowButton extends StatelessWidget {
-  const CustomArrowButton({
+class CustomIconButton extends StatelessWidget {
+  const CustomIconButton({
     super.key,
     required this.icon,
     this.onPressed,

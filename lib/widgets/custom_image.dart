@@ -19,14 +19,17 @@ class CustomImage extends StatelessWidget {
       child: Transform.translate(
         offset: isCurrent ? offset : const Offset(0, 0),
         child: AnimatedContainer(
-          duration: const Duration(milliseconds: 400,),
-          foregroundDecoration: !hasVisited
+          duration: const Duration(
+            milliseconds: 400,
+          ),
+          foregroundDecoration: !hasVisited && !isCurrent
               ? const BoxDecoration(
                   color: Colors.grey,
                   backgroundBlendMode: BlendMode.saturation,
                 )
               : null,
           child: Image.asset(
+            // height: 180,
             "assets/images/$image.png",
           ),
         ),

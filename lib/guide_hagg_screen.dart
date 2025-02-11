@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -25,6 +27,7 @@ class _HajjGuideState extends State<HajjGuide> {
   }
 
   double changeFactor = 1;
+  bool? hasVisitedOrCurrent;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,12 +73,19 @@ class _HajjGuideState extends State<HajjGuide> {
                       child: Stack(
                         clipBehavior: Clip.none,
                         children: [
+                          // index = 11 , changeFactor = 0
                           ...List.generate(imageDataList.length, (index) {
-                            bool visited = index + 1 <= changeFactor;
-                            bool current = index + 1 == changeFactor;
+                            // log("INDEX===> $index");
+                            bool visited = index + 1 <= changeFactor ||
+                                (changeFactor <= 0 &&
+                                    index + changeFactor.abs() >= 12);
+                            bool current = index + 1 == changeFactor ||
+                                (changeFactor <= 0 &&
+                                    index + changeFactor.abs() == 11);
+                            hasVisitedOrCurrent = visited || current;
                             ImageDataModel imageDataModel = ImageDataModel(
                               offset: imageDataList[index].offset,
-                              hasVisited: visited, // Set the dynamic state
+                              hasVisited: visited,
                               isCurrent: current,
                             );
                             imageDataModel.setImageName = index;
@@ -84,12 +94,14 @@ class _HajjGuideState extends State<HajjGuide> {
                             )[index];
                           }),
                           TheCircle(
+                            hasVisitedOrCurrent: hasVisitedOrCurrent ?? false,
                             changeFactor: changeFactor,
                           ),
                         ],
                       ),
                     ),
                     TheCircle(
+                      hasVisitedOrCurrent: hasVisitedOrCurrent ?? false,
                       changeFactor: changeFactor,
                     ),
                   ],
@@ -106,11 +118,11 @@ class _HajjGuideState extends State<HajjGuide> {
               CustomIconButton(
                 icon: Icons.arrow_back_ios_new,
                 onPressed: () {
-                  setState(() {
-                    if (changeFactor > 1) {
+                  if (changeFactor > -11) {
+                    setState(() {
                       changeFactor--;
-                    }
-                  });
+                    });
+                  }
                 },
               ),
               Text(
@@ -127,6 +139,8 @@ class _HajjGuideState extends State<HajjGuide> {
                 icon: Icons.arrow_forward_ios,
                 onPressed: () {
                   setState(() {
+                    log("Change Factor ==> $changeFactor");
+
                     if (changeFactor < 12) {
                       changeFactor++;
                     }

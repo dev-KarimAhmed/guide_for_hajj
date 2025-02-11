@@ -6,9 +6,10 @@ import 'package:guide_for_hajj/widgets/inside_circle.dart';
 class TheCircle extends StatelessWidget {
   const TheCircle({
     super.key,
-    required this.changeFactor,
+    required this.changeFactor, required this.hasVisitedOrCurrent,
   });
   final double changeFactor;
+  final bool hasVisitedOrCurrent;
   @override
   Widget build(BuildContext context) {
     return AnimatedRotation(
@@ -28,7 +29,7 @@ class TheCircle extends StatelessWidget {
           ),
           // Big Inside White Circle
           const InsideCircle(),
-         // Thick border , increase by change the value
+          // Thick border , increase by change the value
           SizedBox(
             width: 160,
             height: 160,
@@ -41,6 +42,7 @@ class TheCircle extends StatelessWidget {
           ),
           // Function to create the dots and give their color according to changeFactor
           ...createDots(
+            hasVisitedOrCurrent: hasVisitedOrCurrent,
             changeFactor: changeFactor,
           ),
         ],

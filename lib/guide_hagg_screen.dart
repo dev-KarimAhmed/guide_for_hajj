@@ -125,14 +125,32 @@ class _HajjGuideState extends State<HajjGuide> {
                   }
                 },
               ),
-              Text(
-                changeFactor == 1
-                    ? "Overnight in Mina"
-                    : "Round ${changeFactor.toInt()}",
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontFamily: "Poppins",
-                  fontWeight: FontWeight.w500,
+              AnimatedSwitcher(
+                duration:
+                    const Duration(milliseconds: 500), // Animation duration
+                transitionBuilder: (Widget child, Animation<double> animation) {
+                  return FadeTransition(
+                    opacity: animation,
+                    child: child,
+                  );
+                },
+                child: Text(
+                  changeFactor == 1
+                      ? "Overnight in Mina"
+                      : changeFactor == 0
+                          ? "Round ${changeFactor.abs().toInt() + 12}"
+                          : changeFactor < 0
+                              ? "Round ${changeFactor.toInt() + 12}"
+                              : "Round ${changeFactor.abs().toInt()}",
+                  key: ValueKey<String>(
+                    // Ensures a new widget is created when text changes
+                    changeFactor.toString(),
+                  ),
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontFamily: "Poppins",
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
               CustomIconButton(
@@ -156,36 +174,39 @@ class _HajjGuideState extends State<HajjGuide> {
               child: Card(
                 margin: const EdgeInsets.all(8),
                 color: Colors.white,
-                child: Column(
-                  children: [
-                    const Text(
-                      textAlign: TextAlign.center,
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus viverra neque, vel ornare est convallis id. Vestibulum mollis viverra nunc, vitae condimentum dolor tristique sed. Phasellus quis varius nulla.",
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontFamily: "Poppins",
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      const Text(
+                        textAlign: TextAlign.center,
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus viverra neque, vel ornare est convallis id. Vestibulum mollis viverra nunc, vitae condimentum dolor tristique sed. Phasellus quis varius nulla.",
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontFamily: "Poppins",
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CustomIconButton(
-                          icon: Icons.bookmark_border_rounded,
-                          onPressed: () {},
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        CustomIconButton(
-                          icon: Icons.share,
-                          onPressed: () {},
-                        ),
-                      ],
-                    ),
-                  ],
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CustomIconButton(
+                            icon: Icons.bookmark_border_rounded,
+                            onPressed: () {},
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          CustomIconButton(
+                            icon: Icons.share,
+                            onPressed: () {},
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

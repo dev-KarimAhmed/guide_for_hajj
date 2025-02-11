@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:guide_for_hajj/core/colors.dart';
 import 'package:guide_for_hajj/functions/create_dots.dart';
@@ -6,7 +8,8 @@ import 'package:guide_for_hajj/widgets/inside_circle.dart';
 class TheCircle extends StatelessWidget {
   const TheCircle({
     super.key,
-    required this.changeFactor, required this.hasVisitedOrCurrent,
+    required this.changeFactor,
+    required this.hasVisitedOrCurrent,
   });
   final double changeFactor;
   final bool hasVisitedOrCurrent;
@@ -37,7 +40,7 @@ class TheCircle extends StatelessWidget {
               backgroundColor: Colors.transparent,
               color: AppColors.primaryColor,
               strokeWidth: 12,
-              value: changeFactor / 12,
+              value: (changeFactor.abs() + 1) / 12,
             ),
           ),
           // Function to create the dots and give their color according to changeFactor
